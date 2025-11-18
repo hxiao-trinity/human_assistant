@@ -7,6 +7,8 @@ Uses FastMCP for easy server setup with arithmetic and Wikipedia tools
 # os.environ["MKL_NUM_THREADS"] = "1"
 # os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
+import sys
+import time
 from typing import Any
 import aiohttp
 import httpx
@@ -32,6 +34,14 @@ from pathlib import Path
 import subprocess
 
 openrouter_api_key = ""
+
+"""
+logging.basicConfig(
+    level=logging.DEBUG,  # DEBUG unlocks full logs
+    stream=sys.stdout,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+)
+"""
 
 # Make absolutely sure we won't use MPS even if available
 if hasattr(torch.backends, "mps"):
@@ -83,6 +93,7 @@ class RAGManager:
         
         # Ollama client for embeddings (reuse connection)
         self.ollama_client = None
+    
     def _ensure_dirs(self):
         for p in [self.working_dir, self.data_dir, self.output_dir]:
             if p is not None:
@@ -487,7 +498,37 @@ async def preprocess_documents() -> str: #Q2
     # 3. Call rag.insert() to process all documents
     # 4. RAG-Anything handles chunking, embedding, and storage automatically
     # 5. Return summary with file count, chunk count, time elapsed
-    pass
+    if not rag_manager.initialized or rag_manager.rag is None:
+        return "ERROR: RAG system not initialized. Call initialize_rag_system first."
+
+    if not rag_manager.data_dir or not rag_manager.data_dir.exists():
+        return f"ERROR: DATA_DIR does not exist: {rag_manager.data_dir}"
+
+    files = [
+        p for p in rag_manager.data_dir.rglob("*")
+        if p.is_file() and p.suffix.lower() in SUPPORTED_EXTENSIONS
+    ]
+
+    start = time.perf_counter()
+
+    # RAG-Anything: folder-level processing, handles chunking & storage
+    await rag_manager.rag.process_folder_complete(
+        folder_path=str(rag_manager.data_dir),
+        output_dir=str(rag_manager.output_dir),
+        file_extensions=list(SUPPORTED_EXTENSIONS),
+        recursive=True,
+        max_workers=4,
+    )
+
+    elapsed = time.perf_counter() - start
+
+    summary = {
+        "status": "ok",
+        "files_seen": len(files),
+        "elapsed_seconds": round(elapsed, 3),
+        "note": "RAG-Anything manages chunk counts and vector storage internally."
+    }
+    return json.dumps(summary, ensure_ascii=False, indent=2)
 
 
 @mcp.tool() 
