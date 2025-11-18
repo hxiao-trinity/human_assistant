@@ -389,7 +389,7 @@ async def initialize_rag_system( # Q1
     embedding_func = EmbeddingFunc(
         embedding_dim=768,
         max_token_size=8192,
-        func=_embedding_func_sync  # sync wrapper around async embeddings
+        func=_embedding_func_async  # sync wrapper around async embeddings
     )
 
     # --------------- Vision function -------------------
@@ -439,8 +439,11 @@ async def initialize_rag_system( # Q1
     }
     return json.dumps(summary, ensure_ascii=False, indent=2)
 
-# Helper Fn for Q1
+# Helper Fn for Q1 (used to work)
 def _embedding_func_sync(texts: list[str]) -> list[list[float]]: return asyncio.run(embed_texts(texts))
+
+# Helper Fn for Q1
+async def _embedding_func_async(texts: list[str]) -> list[list[float]]: return await embed_texts(texts)
 
 # Helper Fn for Q1
 def build_vision_model_func():
