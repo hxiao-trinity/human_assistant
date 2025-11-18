@@ -374,7 +374,7 @@ async def initialize_rag_system( # Q1
         return (
             "ERROR: DATA_DIR, OUTPUT_DIR, and RAG_STORAGE_DIR must be set in .env."
         )
-
+            
     rag_manager.data_dir = Path(data_dir).expanduser()
     rag_manager.output_dir = Path(output_dir).expanduser()
     rag_manager.working_dir = Path(storage_dir).expanduser()
@@ -413,7 +413,7 @@ async def initialize_rag_system( # Q1
         max_context_tokens=2000,
         include_headers=True,
         include_captions=True,
-        content_format="minerU",        # default in your version
+        #content_format="minerU",        # default in your version
     )
 
     # --------------- Create RAGAnything instance -------------------
