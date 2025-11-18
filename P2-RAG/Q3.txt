@@ -1,0 +1,7 @@
+1. What problems does a RAG-based architecture solve compared to pure prompting on a frozen LLM?
+
+A frozen LLM can only rely on the knowledge it learned during pre-training, which means it has no access to new information. So it often hallucinates, provides outdated info, or requires large prompt windows to supply external context. A RAG-based architecture solves these limitations by retrieving relevant documents from an external corpus and feeding them into the model at inference time. This enables up-to-date knowledge, grounded factual answers, and support for private data without retraining the model. RAG also reduces hallucination, lowers prompt cost by retrieving only top-k chunks instead of full documents, and allows organizations to adapt model behavior instantly by simply updating the retrieval corpus rather than modifying the LLM itself.
+
+2. If the corpus changes over time, describe one approach to keep the index fresh without rebuilding everything from scratch.
+
+One practical approach is incremental index maintenance. The system can track metadata such as file checksums or last-modified timestamps to detect which documents are new, deleted, or edited. When changes occur, only those affected documents are re-chunked and re-embedded. New embeddings are inserted into the FAISS index, deleted ones are removed by ID, and updated ones replace old vectors. This avoids re-processing unchanged material and prevents full index rebuilds, keeping updates fast and cost-efficient while ensuring retrieval stays aligned with the latest corpus state.

@@ -1,0 +1,28 @@
+Created a .jsonl dataset of around 450 rows task, natural_command, input, expected_output, and conversations.
+Included diverse command types:
+ - Selection actions: SELECT, TAP, SCROLL (~60%)
+ - App launching: OPEN <app> (~25%)
+ - Listening control: START/STOP LISTENING (~10%)
+ - redo, undo, cancel, home
+ - Covered synonyms, politeness markers ("please", "hey"), filler words ("uh", "um" with indefinite lengths) and lexical variations.
+
+Base model: Gemma-3 270M
+parameters:
+ - Epochs: 3
+ - Learning rate: 5e-6
+ - Batch size: 16
+ - Precision: Q8_0
+Exported model to GGUF format and created Ollama model
+
+
+Example Outputs
+"open messages please"  OPEN messages
+"pause voice input"  STOP LISTENING
+"resume listening"  START LISTENING
+"redo this"  REDO THAT
+
+Observations
+ - Model accuracy is fair but the model is not smart enough to recognize the 'start' in start an app and 'start' in 'start listening', and 'TAP TAP TAP' might happen randomly.
+
+Improvements
+ - Increase dataset to >1000 examples for better generalization

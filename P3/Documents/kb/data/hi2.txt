@@ -1,0 +1,65 @@
+Meeting 
+
+Jonathon dambraugh 
+> companies: Lego and Duo, Google
+
+Cranium ai. 
+22K applicants for 5 positions
+
+Glenn -- IBM
+Graduate H1B visa -- 100 seniors (full time)
+
+Beth -> corporate engagement 750 Millions 
+
+REF account -- by July 1st -- spend it
+
+--------------------
+
+## pip3 install SpeechRecognition
+https://pypi.org/project/SpeechRecognition/
+
+## Install Pyaudio:
+https://people.csail.mit.edu/hubert/pyaudio/#downloads
+
+
+For MAC:
+Download brew:
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+Then: 
+brew install portaudio
+pip3 install pyaudio
+
+For Windows:
+python -m pip install pyaudio
+
+
+## Install pocketsphinx
+pip3 install pocketsphinx
+
+===
+We will be using the ollama cloud model from now on.
+ 
+https://docs.ollama.com/cloud
+
+Create an account in Ollama UI and keep it signed in.
+Select gpt-oss:20b-cloud from the bottom right corner. 
+Check the connectivity with a "Hi" message.
+
+That's test. Keep the ollama running in the backend.
+
+
+model: openrouter/polaris-alpha
+key: [my key]
+
+
+Ollama key: [my key]
+https://openrouter.ai/docs/quickstart
+
+
+ollama pull nomic-embed-text
+
+st.session_state.openrouter_api_key
+
+pip3 install aiohttp
+

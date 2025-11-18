@@ -1,3 +1,8 @@
+*.mp4
+*.gguf
+*.zip
+*.rar
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
