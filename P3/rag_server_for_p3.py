@@ -385,11 +385,48 @@ async def initialize_rag_system( # Q1
 
     rag_manager._ensure_dirs()
 
+    # --- Synchronous Ollama Client Logic (to be run in a thread) ---
+    # This helper function performs the blocking work and returns the list.
+    def _ollama_sync_embed_logic(texts: list[str], model_name: str) -> list[list[float]]:
+        try:
+            sync_client = ollama.Client()
+            response = sync_client.embed(
+                model=model_name,
+                input=texts
+            )
+            return response['embeddings']
+        except Exception as e:
+            # Crucial to raise an error if the sync client fails
+            raise RuntimeError(f"Ollama synchronous embedding failed: {e}")
+
+    # --- ASYNC WRAPPER FOR LIGHTRAG ---
+    # This function is passed to RAGAnything and MUST be defined as async
+    async def _embedding_func_async_to_thread(texts: list[str]) -> list[list[float]]:
+        """
+        Final bridge solution: Define as async to satisfy LightRAG's signature,
+        but use asyncio.to_thread to run the blocking ollama.Client() synchronously.
+        """
+        model_name = getattr(rag_manager, 'embedding_model', 'nomic-embed-text')
+        
+        # Run the blocking function in a separate worker thread.
+        # This call IS an awaitable object, which LightRAG expects.
+        # The result of this call is the final list of embeddings.
+        embeddings = await asyncio.to_thread(
+            _ollama_sync_embed_logic,
+            texts,
+            model_name
+        )
+        
+        # Return the list. When LightRAG awaits this function, it gets the list, 
+        # but the framework is designed to handle this specific await pattern.
+        return embeddings
+
     # --------------- Embedding function ---------------
     embedding_func = EmbeddingFunc(
         embedding_dim=768,
         max_token_size=8192,
-        func=_embedding_func_async  # sync wrapper around async embeddings
+        func=_embedding_func_async
+        #func=_embedding_func_async_to_thread
     )
 
     # --------------- Vision function -------------------
@@ -405,7 +442,7 @@ async def initialize_rag_system( # Q1
         enable_image_processing=enable_vision,
         enable_table_processing=True,
         enable_equation_processing=True,
-        max_concurrent_files=1,
+        max_concurrent_files=3,
         supported_file_extensions=list(SUPPORTED_EXTENSIONS),
         recursive_folder_processing=True,
         context_window=1,
@@ -427,7 +464,7 @@ async def initialize_rag_system( # Q1
     rag_manager.initialized = True
 
     summary = {
-        "status": "initialized",
+        "status": rag_manager.initialized,
         "parser": parser,
         "enable_vision": enable_vision,
         "data_dir": str(rag_manager.data_dir),
@@ -439,11 +476,47 @@ async def initialize_rag_system( # Q1
     }
     return json.dumps(summary, ensure_ascii=False, indent=2)
 
-# Helper Fn for Q1 (used to work)
+# Helper Fn for Q1
 def _embedding_func_sync(texts: list[str]) -> list[list[float]]: return asyncio.run(embed_texts(texts))
 
 # Helper Fn for Q1
+"""
+def _embedding_func_sync(texts: list[str]) -> list[list[float]]:
+    
+    try:
+        # 1. Use the synchronous ollama.Client() for the blocking call
+        response = ollama.Client().embed(
+            model='nomic-embed-text',
+            input=texts
+        )
+        # 2. Returns a concrete list of lists, which LightRAG can handle synchronously
+        return response['embeddings']
+        
+    except Exception as e:
+            # --- TEMPORARY DEBUGGING CODE ---
+            error_msg = f"FATAL: Ollama Connection Error in Worker! Details: {e}"
+            print(error_msg, file=sys.stderr, flush=True) # Direct print to stderr
+            # --- END DEBUGGING CODE ---
+            
+            # Original logic:
+            # logger.error(f"Synchronous Ollama embedding failed in worker thread: {e}")
+            raise RuntimeError(f"Embedding failed: {e}")
+"""
+        
+# Helper Fn for Q1
 async def _embedding_func_async(texts: list[str]) -> list[list[float]]: return await embed_texts(texts)
+
+"""
+async def _embedding_func_async(texts: list[str]) -> list[list[float]]:
+    async_client = ollama.AsyncClient()
+    resp = await async_client.embed(
+        model="nomic-embed-text",
+        input=texts
+    )
+    results = await rag_manager.rag.insert("")
+    return resp["embeddings"]
+"""
+    
 
 # Helper Fn for Q1
 def build_vision_model_func():
@@ -458,8 +531,8 @@ def build_vision_model_func():
 
     return vision_model_func
 
-# Helper Fn for Q1
-def ollama_llm_complete(prompt: str,
+# Helper Fn for Q1, used to be just def
+async def ollama_llm_complete(prompt: str,
                         system_prompt: Optional[str] = None,
                         history_messages: Optional[list[dict]] = None,
                         **kwargs) -> str:
@@ -554,7 +627,18 @@ async def query_knowledge( #Q3
     # 2. Call rag.query() with specified mode
     # 3. Format results with source information
     # 4. Return formatted response
-    pass
+    if not rag_manager.initialized or rag_manager.rag is None:
+        return "ERROR: RAG system not initialized. Call initialize_rag_system first."
+
+    mode = mode.lower()
+    if mode not in {"local", "global", "hybrid"}:
+        mode = "hybrid"
+
+    # RAG-Anything provides async aquery()
+    result = await rag_manager.rag.aquery(question, mode=mode)
+
+    # result is typically a string with citations embedded
+    return result if isinstance(result, str) else json.dumps(result, ensure_ascii=False, indent=2)
 
 
 @mcp.tool() 
@@ -752,6 +836,14 @@ async def get_server_status() -> str:
         """
     return status.strip()
 
+@mcp.tool()
+async def debug_tool(): 
+    single = await ollama.AsyncClient().embed(
+        model='nomic-embed-text',
+        input='The quick brown fox jumps over the lazy dog.'
+    )   
+    print(single['embeddings'])
+
 #endregion knowledge query tools
 
 # Key Implementation Details - Ollama Embeddings
@@ -764,7 +856,9 @@ async def embed_texts(texts: list[str]) -> list[list[float]]:
     )
     return response['embeddings']
 
-#Key Implementation Details - OpenRouter Vision
+    
+
+# Key Implementation Details - OpenRouter Vision
 async def process_image(image_data: str, prompt: str) -> str:
     """Process image with vision model via OpenRouter"""
     async with aiohttp.ClientSession() as session:
@@ -796,3 +890,19 @@ if __name__ == "__main__":
     
     # Run the server with streamable-http transport
     mcp.run(transport="streamable-http")
+
+
+
+
+def embed_texts2(texts: list[str]) -> list[list[float]]:
+    """Generate embeddings using Ollama"""
+    async_client = ollama.AsyncClient()
+    response = async_client.embed(
+        model="nomic-embed-text",
+        input=texts
+    )
+    return response['embeddings']
+
+import ollama
+
+

@@ -56,6 +56,7 @@ class OllamaMCPClient:
             "- Do not invent new tool names.\n"
             "- Please use tool to run any command. Please always give tool call as tool_calls object.\n"
             "- You are P3, an intelligent Knowledge Navigator...\n"
+            "- When I say debug, always use debug_func tool.\n"
         )
 
     async def initialize_tools(self):
