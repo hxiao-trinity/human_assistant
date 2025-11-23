@@ -33,7 +33,7 @@ from pathlib import Path
 
 import subprocess
 
-openrouter_api_key = ""
+# openrouter_api_key = ""
 
 """
 logging.basicConfig(
@@ -807,7 +807,53 @@ async def clear_rag_storage() -> str: #Q7
     # 2. Delete OUTPUT_DIR contents
     # 3. Reset RAG system
     # 4. Return confirmation
-    pass
+
+    if not rag_manager.initialized:
+        return "ERROR: RAG system not initialized."
+
+    storage_dir = rag_manager.working_dir
+    output_dir = rag_manager.output_dir
+
+    removed = []
+
+    # --- 1. Delete RAG_STORAGE_DIR contents ---
+    if storage_dir and storage_dir.exists():
+        for item in storage_dir.iterdir():
+            try:
+                if item.is_file():
+                    item.unlink()
+                else:
+                    shutil.rmtree(item)
+                removed.append(str(item))
+            except Exception as e:
+                removed.append(f"{item} (FAILED: {e})")
+
+    # --- 2. Delete OUTPUT_DIR contents ---
+    if output_dir and output_dir.exists():
+        for item in output_dir.iterdir():
+            try:
+                if item.is_file():
+                    item.unlink()
+                else:
+                    shutil.rmtree(item)
+                removed.append(str(item))
+            except Exception as e:
+                removed.append(f"{item} (FAILED: {e})")
+
+    # --- 3. Reset RAG system ---
+    rag_manager.rag = None
+    rag_manager.initialized = False
+
+    # --- 4. Return confirmation ---
+    return json.dumps(
+        {
+            "status": "ok",
+            "removed_items": removed,
+            "message": "RAG storage cleared. Run initialize_rag_system() again before processing documents."
+        },
+        ensure_ascii=False,
+        indent=2,
+    )
 
 
 @mcp.tool() 
@@ -834,7 +880,7 @@ async def get_rag_status(detailed: bool = False) -> str: #Q8
         "output_dir": str(rag_manager.output_dir) if rag_manager.output_dir else None,
         "storage_dir": str(rag_manager.working_dir) if rag_manager.working_dir else None,
     }
-    
+
     # ---- 1. System not initialized ----
     if not rag_manager.initialized:
         status["message"] = "RAG system not initialized. Call initialize_rag_system first."
@@ -973,7 +1019,6 @@ async def clear_knowledge_base() -> str:
         logger.error(error_msg)
         return error_msg
 
-
 # Server Status Tool
 @mcp.tool()
 async def get_server_status() -> str:
@@ -1018,8 +1063,6 @@ async def embed_texts(texts: list[str]) -> list[list[float]]:
     )
     return response['embeddings']
 
-    
-
 # Key Implementation Details - OpenRouter Vision
 async def process_image(image_data: str, prompt: str) -> str:
     """Process image with vision model via OpenRouter"""
@@ -1056,15 +1099,15 @@ if __name__ == "__main__":
 
 
 
-def embed_texts2(texts: list[str]) -> list[list[float]]:
-    """Generate embeddings using Ollama"""
-    async_client = ollama.AsyncClient()
-    response = async_client.embed(
-        model="nomic-embed-text",
-        input=texts
-    )
-    return response['embeddings']
+# def embed_texts2(texts: list[str]) -> list[list[float]]:
+#     """Generate embeddings using Ollama"""
+#     async_client = ollama.AsyncClient()
+#     response = async_client.embed(
+#         model="nomic-embed-text",
+#         input=texts
+#     )
+#     return response['embeddings']
 
-import ollama
+# import ollama
 
 
