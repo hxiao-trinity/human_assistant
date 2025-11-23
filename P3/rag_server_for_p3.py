@@ -476,47 +476,46 @@ async def initialize_rag_system( # Q1
     }
     return json.dumps(summary, ensure_ascii=False, indent=2)
 
+"""
 # Helper Fn for Q1
-def _embedding_func_sync(texts: list[str]) -> list[list[float]]: return asyncio.run(embed_texts(texts))
+# def _embedding_func_sync(texts: list[str]) -> list[list[float]]: return asyncio.run(embed_texts(texts))
 
 # Helper Fn for Q1
-"""
-def _embedding_func_sync(texts: list[str]) -> list[list[float]]:
+# def _embedding_func_sync(texts: list[str]) -> list[list[float]]:
     
-    try:
-        # 1. Use the synchronous ollama.Client() for the blocking call
-        response = ollama.Client().embed(
-            model='nomic-embed-text',
-            input=texts
-        )
-        # 2. Returns a concrete list of lists, which LightRAG can handle synchronously
-        return response['embeddings']
+#     try:
+#         # 1. Use the synchronous ollama.Client() for the blocking call
+#         response = ollama.Client().embed(
+#             model='nomic-embed-text',
+#             input=texts
+#         )
+#         # 2. Returns a concrete list of lists, which LightRAG can handle synchronously
+#         return response['embeddings']
         
-    except Exception as e:
-            # --- TEMPORARY DEBUGGING CODE ---
-            error_msg = f"FATAL: Ollama Connection Error in Worker! Details: {e}"
-            print(error_msg, file=sys.stderr, flush=True) # Direct print to stderr
-            # --- END DEBUGGING CODE ---
+#     except Exception as e:
+#             # --- TEMPORARY DEBUGGING CODE ---
+#             error_msg = f"FATAL: Ollama Connection Error in Worker! Details: {e}"
+#             print(error_msg, file=sys.stderr, flush=True) # Direct print to stderr
+#             # --- END DEBUGGING CODE ---
             
-            # Original logic:
-            # logger.error(f"Synchronous Ollama embedding failed in worker thread: {e}")
-            raise RuntimeError(f"Embedding failed: {e}")
-"""
+#             # Original logic:
+#             # logger.error(f"Synchronous Ollama embedding failed in worker thread: {e}")
+#             raise RuntimeError(f"Embedding failed: {e}")
         
+
+
+# async def _embedding_func_async(texts: list[str]) -> list[list[float]]:
+#     async_client = ollama.AsyncClient()
+#     resp = await async_client.embed(
+#         model="nomic-embed-text",
+#         input=texts
+#     )
+#     results = await rag_manager.rag.insert("")
+#     return resp["embeddings"]    
+"""
+
 # Helper Fn for Q1
 async def _embedding_func_async(texts: list[str]) -> list[list[float]]: return await embed_texts(texts)
-
-"""
-async def _embedding_func_async(texts: list[str]) -> list[list[float]]:
-    async_client = ollama.AsyncClient()
-    resp = await async_client.embed(
-        model="nomic-embed-text",
-        input=texts
-    )
-    results = await rag_manager.rag.insert("")
-    return resp["embeddings"]
-"""
-    
 
 # Helper Fn for Q1
 def build_vision_model_func():
@@ -531,7 +530,7 @@ def build_vision_model_func():
 
     return vision_model_func
 
-# Helper Fn for Q1, used to be just def
+# Helper Fn for Q1, used to be just def (sync instead of async)
 async def ollama_llm_complete(prompt: str,
                         system_prompt: Optional[str] = None,
                         history_messages: Optional[list[dict]] = None,
@@ -657,7 +656,61 @@ async def add_document(file_path: str) -> str: #Q4
     # 2. Copy file to DATA_DIR if not already there
     # 3. Call rag.insert() for the single file
     # 4. Return success message
-    pass
+
+    # --- 1. Check initialization ---
+    if not rag_manager.initialized or rag_manager.rag is None:
+        return "ERROR: RAG system not initialized. Run initialize_rag_system first."
+
+    # Convert to Path
+    src = Path(file_path).expanduser()
+
+    # --- 2. Validate file existence ---
+    if not src.exists() or not src.is_file():
+        return f"ERROR: File does not exist: {src}"
+
+    ext = src.suffix.lower()
+    if ext not in SUPPORTED_EXTENSIONS:
+        return f"ERROR: Unsupported file type '{ext}'. Supported: {sorted(SUPPORTED_EXTENSIONS)}"
+
+    # --- 3. Copy into DATA_DIR (avoid overwriting) ---
+    dest = rag_manager.data_dir / src.name
+    if dest.exists():
+        # Avoid overwriting user's files
+        base = dest.stem
+        suf = dest.suffix
+        counter = 1
+        while True:
+            new_dest = rag_manager.data_dir / f"{base}_{counter}{suf}"
+            if not new_dest.exists():
+                dest = new_dest
+                break
+            counter += 1
+
+    try:
+        shutil.copy2(src, dest)
+    except Exception as e:
+        return f"ERROR copying file: {e}"
+
+    # --- 4. Process the single document using new API ---
+    try:
+        start = time.perf_counter()
+
+        await rag_manager.rag.process_document_complete(
+            file_path=str(dest),
+            output_dir=str(rag_manager.output_dir)
+        )
+
+        elapsed = round(time.perf_counter() - start, 3)
+    except Exception as e:
+        return f"ERROR during processing: {e}"
+
+    # --- 5. Return success summary ---
+    return json.dumps({
+        "status": "ok",
+        "added_file": str(dest),
+        "elapsed_seconds": elapsed,
+        "note": "Document ingested successfully into RAGAnything."
+    }, ensure_ascii=False, indent=2)
 
 
 @mcp.tool() 
@@ -675,7 +728,70 @@ async def rename_pdfs_by_title() -> str: #Q5
     # 4. Sanitize title for filename (remove special chars, limit length)
     # 5. Rename file (handle conflicts with numbers: title_1.pdf, title_2.pdf)
     # 6. Return list of old -> new mappings
-    pass
+    if not rag_manager.initialized:
+        return "ERROR: RAG system not initialized."
+
+    import re
+    from PyPDF2 import PdfReader
+
+    data_dir = rag_manager.data_dir
+    pdfs = list(data_dir.rglob("*.pdf"))
+    if not pdfs:
+        return "No PDF files found."
+
+    results = {}
+    used_names = set()
+
+    def sanitize(name: str) -> str:
+        # Remove illegal filename chars
+        name = re.sub(r'[\\/*?:"<>|]', "", name)
+        name = name.strip()
+        # Truncate long names
+        return name[:60] if len(name) > 60 else name
+
+    for pdf in pdfs:
+        try:
+            # --- Step 1: extract text from first page ---
+            reader = PdfReader(str(pdf))
+            first_page = reader.pages[0].extract_text() if reader.pages else ""
+            context = first_page.strip()[:2000]  # safety limit
+
+            if not context:
+                results[pdf.name] = "(skipped: empty first page)"
+                continue
+
+            # --- Step 2: ask the LLM for a short title ---
+            prompt = (
+                "Extract a clean, short academic-style title from the text below. "
+                "Output ONLY the title, no quotation marks, no commentary.\n\n"
+                f"{context}"
+            )
+            raw_title = (await ollama_llm_complete(prompt)).strip()
+            title = sanitize(raw_title)
+
+            if not title:
+                results[pdf.name] = "(skipped: LLM returned empty title)"
+                continue
+
+            # --- Step 3: handle filename collisions ---
+            new_name = f"{title}.pdf"
+            counter = 1
+            while new_name in used_names or (pdf.parent / new_name).exists():
+                new_name = f"{title}_{counter}.pdf"
+                counter += 1
+
+            used_names.add(new_name)
+
+            # --- Step 4: rename file ---
+            new_path = pdf.parent / new_name
+            pdf.rename(new_path)
+
+            results[pdf.name] = new_name
+
+        except Exception as e:
+            results[pdf.name] = f"(error: {e})"
+
+    return json.dumps(results, ensure_ascii=False, indent=2)
 
 
 @mcp.tool() 
@@ -711,7 +827,51 @@ async def get_rag_status(detailed: bool = False) -> str: #Q8
     # 3. Check storage directory size
     # 4. If detailed=True, list all files
     # 5. Return formatted status report
-    pass
+
+    status = {
+        "initialized": rag_manager.initialized,
+        "data_dir": str(rag_manager.data_dir) if rag_manager.data_dir else None,
+        "output_dir": str(rag_manager.output_dir) if rag_manager.output_dir else None,
+        "storage_dir": str(rag_manager.working_dir) if rag_manager.working_dir else None,
+    }
+    
+    # ---- 1. System not initialized ----
+    if not rag_manager.initialized:
+        status["message"] = "RAG system not initialized. Call initialize_rag_system first."
+        return json.dumps(status, ensure_ascii=False, indent=2)
+
+    # ---- 2. Count documents in DATA_DIR ----
+    data_files = []
+    if rag_manager.data_dir and rag_manager.data_dir.exists():
+        for p in rag_manager.data_dir.iterdir():
+            if p.is_file():
+                data_files.append(str(p.name))
+
+    status["document_count"] = len(data_files)
+
+    # ---- 3. Compute total storage size in RAG_STORAGE_DIR ----
+    total_bytes = 0
+    if rag_manager.working_dir and rag_manager.working_dir.exists():
+        for p in rag_manager.working_dir.rglob("*"):
+            if p.is_file():
+                total_bytes += p.stat().st_size
+
+    status["storage_size_bytes"] = total_bytes
+    status["storage_size_mb"] = round(total_bytes / (1024 * 1024), 3)
+
+    # ---- 4. Detailed output ----
+    if detailed:
+        status["documents"] = data_files
+
+        storage_files = []
+        if rag_manager.working_dir and rag_manager.working_dir.exists():
+            for p in rag_manager.working_dir.iterdir():
+                storage_files.append(str(p.name))
+
+        status["storage_files"] = storage_files
+
+    # ---- 5. Return JSON ----
+    return json.dumps(status, ensure_ascii=False, indent=2)
 
 
 @mcp.tool() #FROM P1
@@ -754,43 +914,45 @@ async def ingest_tx() -> str:
         vector_store.add_texts(chunks)  # uses your lazy init + FAISS add
     return f"files={len(files)}, chunks={len(chunks)}, total_docs={len(vector_store.documents)}"
 
-#region Knowledge query tools
-@mcp.tool()
-async def query_knowledge(question: str) -> str:
-    """Query the knowledge base for information about previously scraped Wikipedia content.
+
+# #region Knowledge query tools
+# @mcp.tool()
+# async def query_knowledge(question: str) -> str:
+#     """Query the knowledge base for information about previously scraped Wikipedia content.
     
-    This tool searches the vector database for relevant content and returns an answer.
-    You must scrape Wikipedia content first using the scrape_wikipedia tool.
+#     This tool searches the vector database for relevant content and returns an answer.
+#     You must scrape Wikipedia content first using the scrape_wikipedia tool.
     
-    Args:
-        question: Question to ask about the scraped content
+#     Args:
+#         question: Question to ask about the scraped content
     
-    Returns:
-        Answer based on stored Wikipedia content or error message
-    """
-    try:
-        # Check if vector store has content
-        if vector_store.index is None or len(vector_store.documents) == 0:
-            return "Error: No information has been stored yet. Please scrape a Wikipedia page first using the scrape_wikipedia tool."
+#     Returns:
+#         Answer based on stored Wikipedia content or error message
+#     """
+#     try:
+#         # Check if vector store has content
+#         if vector_store.index is None or len(vector_store.documents) == 0:
+#             return "Error: No information has been stored yet. Please scrape a Wikipedia page first using the scrape_wikipedia tool."
         
-        logger.info(f"Querying knowledge base with question: {question}")
+#         logger.info(f"Querying knowledge base with question: {question}")
         
-        # Retrieve relevant documents
-        relevant_docs = vector_store.similarity_search(question, k=3)
+#         # Retrieve relevant documents
+#         relevant_docs = vector_store.similarity_search(question, k=3)
         
-        if not relevant_docs:
-            return "I couldn't find relevant information to answer your question. The stored content may not contain information about this topic."
+#         if not relevant_docs:
+#             return "I couldn't find relevant information to answer your question. The stored content may not contain information about this topic."
         
-        # Combine relevant documents into context
-        context = "\n\n---\n\n".join(relevant_docs)
+#         # Combine relevant documents into context
+#         context = "\n\n---\n\n".join(relevant_docs)
         
-        # Return the context - the LLM will use this to answer the question
-        return f"Based on the stored Wikipedia content, here is the relevant information:\n\n{context}\n\n(This information can be used to answer the question: {question})"
+#         # Return the context - the LLM will use this to answer the question
+#         return f"Based on the stored Wikipedia content, here is the relevant information:\n\n{context}\n\n(This information can be used to answer the question: {question})"
         
-    except Exception as e:
-        error_msg = f"Error querying knowledge base: {str(e)}"
-        logger.error(error_msg)
-        return error_msg
+#     except Exception as e:
+#         error_msg = f"Error querying knowledge base: {str(e)}"
+#         logger.error(error_msg)
+#         return error_msg
+
 
 
 @mcp.tool()
@@ -865,7 +1027,7 @@ async def process_image(image_data: str, prompt: str) -> str:
         response = await session.post(
             "https://openrouter.ai/api/v1/chat/completions",
             headers={
-                "Authorization": f"Bearer {openrouter_api_key}",
+                "Authorization": f"Bearer {rag_manager.openrouter_api_key}", #used to be openrouter_api_key
                 "Content-Type": "application/json"
             },
             json={
