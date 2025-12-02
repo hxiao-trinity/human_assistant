@@ -2,6 +2,10 @@
 *.gguf
 *.zip
 *.rar
+venv*
+#Documents/
+backup_files/
+P3/Documents
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
