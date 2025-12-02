@@ -34,6 +34,8 @@ from pathlib import Path
 import subprocess
 
 # openrouter_api_key = ""
+user_home = os.path.expanduser('~')
+proc = None
 
 """
 logging.basicConfig(
@@ -919,21 +921,124 @@ async def get_rag_status(detailed: bool = False) -> str: #Q8
     # ---- 5. Return JSON ----
     return json.dumps(status, ensure_ascii=False, indent=2)
 
+@mcp.tool()
+async def download_arxiv_paper(url: str) -> str: #QX
+    """
+    Download a paper from an arXiv URL and save into DATA_DIR.
+    """
+    if not rag_manager.data_dir:
+        return "ERROR: DATA_DIR not configured."
+
+    # Normalize arXiv URL
+    if "arxiv.org/abs/" in url:
+        paper_id = url.split("/abs/")[1]
+        pdf_url = f"https://arxiv.org/pdf/{paper_id}.pdf"
+    elif "arxiv.org/pdf/" in url and url.endswith(".pdf"):
+        pdf_url = url
+        paper_id = url.split("/pdf/")[1].replace(".pdf", "")
+    else:
+        return "ERROR: Not a valid arXiv URL."
+
+    # Download PDF
+    filename = f"arxiv_{paper_id}.pdf"
+    dest_path = rag_manager.data_dir / filename
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(pdf_url) as resp:
+            if resp.status != 200:
+                return f"ERROR: Failed to download PDF. Status {resp.status}"
+            content = await resp.read()
+            dest_path.write_bytes(content)
+
+    return (
+        f"Downloaded arXiv paper to: {dest_path}\n\n"
+        "Would you like to parse this document now? "
+        "If yes, call: add_document(file_path='<same path>')"
+    )
+
 
 @mcp.tool() #FROM P1
 async def initiate_terminal(cwd: Optional[str] = None) -> str:
     """Start a persistent bash terminal session."""
-    pass
+    global proc
+    if proc is not None:
+        proc.terminate()
+        proc.wait()
+        # return "Terminal is already open."
+
+    if cwd != "":
+        if "~" in cwd:
+            cwd = cwd.replace("~", user_home)
+        if not os.path.isdir(cwd):
+            return f"{cwd} is not a directory."
+        proc = subprocess.Popen(
+            ["cmd.exe"],
+            cwd=cwd,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            bufsize=1
+        )
+    else:
+        proc = subprocess.Popen(
+            ["cmd.exe"],
+            cwd=user_home,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            bufsize=1
+        )
+
+    return "Terminal Initiated"
 
 @mcp.tool() #FROM P1
 async def run_command(command: str) -> str:
     """Execute a bash command in the terminal."""
-    pass
+    global proc
+
+    try:
+        output = []
+        if proc is not None:
+            if not command.endswith("\n"):
+                command += "\n"
+
+            proc.stdin.write(command)
+
+            marker = "[END_OF_CMD]" # a hack to know the end of a command output
+            proc.stdin.write(f"echo {marker}\n")
+                    
+            proc.stdin.flush()
+
+            while True:
+                line = proc.stdout.readline()
+                if not line: break
+                if marker in line: break
+                output.append(line.rstrip())        
+        else:
+            output = ["No terminal has been initiated. Please initiate a terminal first with `initiate_terminal(working_dir)`"]
+
+        out = "\n".join(output)
+        output_str = f"""
+            Command: {command}
+            Output: {out}    
+        """
+
+        return output_str
+    
+    except Exception as e:
+        return f"ERROR: An exception occured {type(e).__name__}. Details: {e}"
 
 @mcp.tool() #FROM P1
 async def terminate_terminal() -> str:
     """Close the terminal session."""
-    pass
+    global proc
+    if proc is not None:
+        proc.terminate()
+        proc.wait()
+        return "Terminal Terminated"
+    return "No terminal is open."
 
 
 @mcp.tool()

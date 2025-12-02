@@ -56,7 +56,7 @@ class OllamaMCPClient:
             "- Do not invent new tool names.\n"
             "- Please use tool to run any command. Please always give tool call as tool_calls object.\n"
             "- You are P3, an intelligent Knowledge Navigator...\n"
-            "- When I say debug, always use debug_func tool.\n"
+            "- When executing query_knowledge, always show responses with source citations.\n"
         )
 
     async def initialize_tools(self):
@@ -198,7 +198,71 @@ class OllamaMCPClient:
         # 3. Handle tool calls in a loop (agentic behavior)
         # 4. For each response token, yield it
         # 5. Update conversation history
-        pass
+
+        # 1. Add user message
+        self.messages.append({"role": "user", "content": user_input})
+
+        # Up to 5 tool-call cycles
+        for _ in range(5):
+
+            # 2. Call LLM with tools enabled
+            stream = ollama.chat(
+                model=self.llm_model,
+                messages=self.messages,
+                tools=self.available_tools,
+                stream=True,
+            )
+
+            assistant_text = ""
+            tool_calls = []
+
+            # --- 3. Stream tokens ---
+            for chunk in stream:
+                m = chunk.get("message", {})
+                if "content" in m and m["content"]:
+                    assistant_text += m["content"]
+                    yield m["content"]
+
+                # Capture tool calls (if any)
+                if m.get("tool_calls"):
+                    tool_calls.extend(m["tool_calls"])
+
+            # Save assistant message
+            self.messages.append({
+                "role": "assistant",
+                "content": assistant_text,
+                "tool_calls": tool_calls or []
+            })
+
+            # --- 4. If no tool calls, we're done ---
+            if not tool_calls:
+                return
+
+            # --- 5. Execute tools and feed results back ---
+            for tc in tool_calls:
+                tool_name = tc["function"]["name"]
+                tool_args = tc["function"].get("arguments", {})
+
+                # Execute on MCP server
+                async with streamablehttp_client(url=self.server_url) as (read, write, _):
+                    async with ClientSession(read, write) as session:
+                        await session.initialize()
+                        result = await session.call_tool(tool_name, tool_args)
+
+                # Extract tool result text
+                raw_output = ""
+                if result.content and getattr(result.content[0], "text", None):
+                    raw_output = result.content[0].text
+
+                # Add tool result to conversation
+                self.messages.append({
+                    "role": "tool",
+                    "tool_call_id": tc.get("id", str(uuid.uuid4())),
+                    "content": raw_output,
+                })
+
+        # If more than 5 loops → bail out
+        yield "\n\n⚠️ Tool-call loop exceeded 5 cycles.\n"
     
     async def call_tool(self, tool_name: str, tool_input: dict):
         """
@@ -216,12 +280,12 @@ class OllamaMCPClient:
         # 2. Call session.call_tool()
         # 3. Return result
         response = ollama.chat(
-        model=self.llm_model,
-        messages=self.messages,
-        tools=self.available_tools,
-        stream=True  # Enable streaming for responsive UI
+            model=self.llm_model,
+            messages=self.messages,
+            tools=self.available_tools,
+            stream=True  # Enable streaming for responsive UI
         )
-        
+
 
     
     def get_conversation_history(self):
