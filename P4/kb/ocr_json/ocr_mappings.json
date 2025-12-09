@@ -1,0 +1,322 @@
+{
+  "image_path": "C:\\Horton-2\\Horton\\PennState\\597-1\\human_assistant\\P4\\kb\\screenshots\\ocr_screenshot.png",
+  "image_width": 2496,
+  "image_height": 1664,
+  "mappings": [
+    {
+      "text": "O",
+      "center_x": 49.0,
+      "center_y": 34.5
+    },
+    {
+      "text": "human_assistant/P4/p4_mcp_se",
+      "center_x": 225.0,
+      "center_y": 36.0
+    },
+    {
+      "text": "\u00d7",
+      "center_x": 388.0,
+      "center_y": 35.5
+    },
+    {
+      "text": "o1",
+      "center_x": 465.0,
+      "center_y": 34.5
+    },
+    {
+      "text": "Open WebUI",
+      "center_x": 553.0,
+      "center_y": 36.0
+    },
+    {
+      "text": "\u00d7",
+      "center_x": 815.5,
+      "center_y": 33.5
+    },
+    {
+      "text": "9",
+      "center_x": 882.5,
+      "center_y": 34.0
+    },
+    {
+      "text": "New Tab",
+      "center_x": 949.0,
+      "center_y": 35.0
+    },
+    {
+      "text": "\u00d7",
+      "center_x": 1239.0,
+      "center_y": 34.5
+    },
+    {
+      "text": "+",
+      "center_x": 1289.5,
+      "center_y": 35.0
+    },
+    {
+      "text": "\u8cb7",
+      "center_x": 2108.25,
+      "center_y": 34.25
+    },
+    {
+      "text": "Gemini",
+      "center_x": 2167.0,
+      "center_y": 34.5
+    },
+    {
+      "text": "\u51f8",
+      "center_x": 2375.5,
+      "center_y": 34.5
+    },
+    {
+      "text": "X",
+      "center_x": 2456.0,
+      "center_y": 35.0
+    },
+    {
+      "text": "V",
+      "center_x": 37.5,
+      "center_y": 109.75
+    },
+    {
+      "text": "\u03c0",
+      "center_x": 101.75,
+      "center_y": 109.5
+    },
+    {
+      "text": "\u2606",
+      "center_x": 2090.5,
+      "center_y": 110.5
+    },
+    {
+      "text": "\u53e3",
+      "center_x": 2213.0,
+      "center_y": 108.0
+    },
+    {
+      "text": "C\u0101",
+      "center_x": 2301.5,
+      "center_y": 110.5
+    },
+    {
+      "text": "\u306e",
+      "center_x": 2394.5,
+      "center_y": 110.25
+    },
+    {
+      "text": "C",
+      "center_x": 164.75,
+      "center_y": 107.25
+    },
+    {
+      "text": "\u2460",
+      "center_x": 239.0,
+      "center_y": 110.5
+    },
+    {
+      "text": "localhost:8080/c/ebc9eb32-0b33-4df3-a7a4-411a21c15eda",
+      "center_x": 594.5,
+      "center_y": 110.5
+    },
+    {
+      "text": "",
+      "center_x": 2245.5,
+      "center_y": 109.5
+    },
+    {
+      "text": "\u25cf\u2022",
+      "center_x": 2458.0,
+      "center_y": 109.5
+    },
+    {
+      "text": "OI",
+      "center_x": 45.5,
+      "center_y": 196.0
+    },
+    {
+      "text": "gpt-oss:120b-cloud v +",
+      "center_x": 303.5,
+      "center_y": 190.0
+    },
+    {
+      "text": "",
+      "center_x": 2381.5,
+      "center_y": 189.5
+    },
+    {
+      "text": "\u2022 \u3002 ",
+      "center_x": 2319.5,
+      "center_y": 189.0
+    },
+    {
+      "text": "M",
+      "center_x": 2445.0,
+      "center_y": 187.5
+    },
+    {
+      "text": "C",
+      "center_x": 45.5,
+      "center_y": 270.0
+    },
+    {
+      "text": "ocr screenshot",
+      "center_x": 2029.0,
+      "center_y": 277.0
+    },
+    {
+      "text": "Q",
+      "center_x": 44.5,
+      "center_y": 331.5
+    },
+    {
+      "text": "\u65e5",
+      "center_x": 45.0,
+      "center_y": 395.5
+    },
+    {
+      "text": "OI",
+      "center_x": 462.0,
+      "center_y": 424.0
+    },
+    {
+      "text": "gpt-oss:120b-cloud",
+      "center_x": 652.0,
+      "center_y": 411.0
+    },
+    {
+      "text": "\u5668",
+      "center_x": 45.5,
+      "center_y": 457.5
+    },
+    {
+      "text": "8",
+      "center_x": 2335.5,
+      "center_y": 848.0
+    },
+    {
+      "text": "",
+      "center_x": 2354.5,
+      "center_y": 848.5
+    },
+    {
+      "text": "0",
+      "center_x": 2344.5,
+      "center_y": 883.75
+    },
+    {
+      "text": "*",
+      "center_x": 2345.5,
+      "center_y": 1025.5
+    },
+    {
+      "text": "Send a Message",
+      "center_x": 438.5,
+      "center_y": 1445.5
+    },
+    {
+      "text": "Activate Windows",
+      "center_x": 2122.0,
+      "center_y": 1458.5
+    },
+    {
+      "text": "Go to Settings to activate Windows.",
+      "center_x": 2187.0,
+      "center_y": 1505.0
+    },
+    {
+      "text": "\u5341",
+      "center_x": 352.0,
+      "center_y": 1515.5
+    },
+    {
+      "text": "81",
+      "center_x": 489.5,
+      "center_y": 1515.0
+    },
+    {
+      "text": "\u54c1",
+      "center_x": 422.0,
+      "center_y": 1514.0
+    },
+    {
+      "text": "H",
+      "center_x": 45.5,
+      "center_y": 1536.5
+    },
+    {
+      "text": "",
+      "center_x": 1070.0,
+      "center_y": 1631.25
+    },
+    {
+      "text": "\u540e.\u82f1",
+      "center_x": 2183.0,
+      "center_y": 1628.0
+    },
+    {
+      "text": "23:09",
+      "center_x": 2344.5,
+      "center_y": 1612.0
+    },
+    {
+      "text": "",
+      "center_x": 40.5,
+      "center_y": 1628.5
+    },
+    {
+      "text": "O",
+      "center_x": 124.5,
+      "center_y": 1623.0
+    },
+    {
+      "text": "Type here to search",
+      "center_x": 272.0,
+      "center_y": 1631.5
+    },
+    {
+      "text": "\u4e09i",
+      "center_x": 632.0,
+      "center_y": 1627.0
+    },
+    {
+      "text": "\u00ae",
+      "center_x": 895.5,
+      "center_y": 1633.5
+    },
+    {
+      "text": "w",
+      "center_x": 1234.5,
+      "center_y": 1628.0
+    },
+    {
+      "text": "\u53e3",
+      "center_x": 1989.0,
+      "center_y": 1627.0
+    },
+    {
+      "text": "5",
+      "center_x": 2047.5,
+      "center_y": 1627.5
+    },
+    {
+      "text": "\u62fc",
+      "center_x": 2255.5,
+      "center_y": 1628.0
+    },
+    {
+      "text": "\u53e3",
+      "center_x": 719.0,
+      "center_y": 1634.0
+    },
+    {
+      "text": "-",
+      "center_x": 2099.5,
+      "center_y": 1627.5
+    },
+    {
+      "text": "2025/12/8",
+      "center_x": 2345.0,
+      "center_y": 1645.0
+    }
+  ]
+}
