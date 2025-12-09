@@ -485,7 +485,7 @@ class CaptureScreenWithNumbers(Workflow[dict]):
 
         # Run OCR
         ocr = get_ocr()
-        ocr_result = ocr.ocr(screenshot_path) # used to have cls=False
+        ocr_result = ocr.ocr(screenshot_path, ) # used to have cls=False
         # Diag -- newly added
         import numpy as np
         from pprint import pprint
@@ -498,104 +498,192 @@ class CaptureScreenWithNumbers(Workflow[dict]):
                 return {k: numpy_to_list(v) for k, v in obj.items()}
             return obj
         
+        raw_txt_path = os.path.join(screenshot_dir, "ocr_raw_dump.txt")
         print("\n===== RAW OCR RESULT =====")
         # print(json.dumps(numpy_to_list(ocr_result), indent=2))
-        pprint(ocr_result)
+        try:
+            raw_txt_path = os.path.join(screenshot_dir, "ocr_raw_dump.txt")
+
+            # Always open file first so f is valid even if conversion fails
+            with open(raw_txt_path, "w", encoding="utf-8") as f:
+                f.write("===== RAW OCR RESULT =====\n\n")
+
+                try:
+                    clean = numpy_to_list(ocr_result)
+                    f.write(json.dumps(clean, indent=2, ensure_ascii=False))
+                except Exception as e:
+                    f.write("JSON CONVERSION FAILED:\n")
+                    f.write(repr(ocr_result))
+
+                f.write("\n\n===== END =====")
+        except Exception as e:
+            logger.error(f"Failed to write OCR dump: {e}")
+
         print("==========================\n")
 
-        mappings = []
-        number_entries = []
-        text_entries = []
 
-        # Flatten OCR result and separate numeric / text entries
-        for page in ocr_result or []:
-            for det in page or []:
-                if len(det) < 2:
-                    continue
-                # box, (txt, conf) = det
-                try:
-                    box = det[0]
-                    txt, conf = det[1]
-                except Exception:
-                    continue
+        # mappings = []
+        # number_entries = []
+        # text_entries = []
+
+        # # Flatten OCR result and separate numeric / text entries
+        # for page in ocr_result or []:
+        #     logger.info(f"page {page}")
+        #     for det in page or []:
+        #         logger.info(f"det {det}, page {page}")
+        #         if len(det) < 2:
+        #             logger.info(f"det {det}, page {page}: <<<<<<< 2")
+        #             continue
+        #         # box, (txt, conf) = det
+        #         try:
+        #             box = det[0]
+        #             txt, conf = det[1]
+        #         except Exception:
+        #             logger.error(f"Error 1: det {det}, page {page}")
+        #             continue
                 
-                if not txt:
-                    continue
+        #         if not txt:
+        #             continue
 
-                # Compute center of bounding box
-                try:
-                    xs = [p[0] for p in box]
-                    ys = [p[1] for p in box]
-                    cx = sum(xs) / len(xs)
-                    cy = sum(ys) / len(ys)
-                except Exception:
-                    continue
+        #         # Compute center of bounding box
+        #         try:
+        #             xs = [p[0] for p in box]
+        #             ys = [p[1] for p in box]
+        #             cx = sum(xs) / len(xs)
+        #             cy = sum(ys) / len(ys)
+        #         except Exception:
+        #             logger.error(f"Error 2: det {det}, page {page}")
+        #             continue
 
-                digits = extract_ascii_digits(txt)
-                stripped = txt
-                for d in digits:
-                    stripped = stripped.replace(d, "")
-                stripped = stripped.strip()
+        #         digits = extract_ascii_digits(txt)
+        #         stripped = txt
+        #         for d in digits:
+        #             stripped = stripped.replace(d, "")
+        #         stripped = stripped.strip()
 
-                base_entry = {
-                    "raw_text": txt,
-                    "digits": digits,
-                    "text": stripped if stripped else txt,
-                    "center_x": cx,
-                    "center_y": cy,
-                }
+        #         base_entry = {
+        #             "raw_text": txt,
+        #             "digits": digits,
+        #             "text": stripped if stripped else txt,
+        #             "center_x": cx,
+        #             "center_y": cy,
+        #         }
 
-                # Case 1: digits and label in same text (e.g., "1Settings")
-                if digits and stripped:
-                    mappings.append(
-                        {
-                            "number": digits,
-                            "text": stripped,
-                            "center_x": cx,
-                            "center_y": cy,
-                        }
-                    )
-                # Case 2: pure number (e.g., "1") – need to associate with nearest label
-                elif digits and not stripped:
-                    number_entries.append(base_entry)
-                # Case 3: pure label, no leading digits
-                else:
-                    text_entries.append(base_entry)
+        #         # Case 1: digits and label in same text (e.g., "1Settings")
+        #         if digits and stripped:
+        #             logger.info("Sssssssssssssssssssssssssssssssssssssssssssssssssssssssss")
+        #             mappings.append(
+        #                 {
+        #                     "number": digits,
+        #                     "text": stripped,
+        #                     "center_x": cx,
+        #                     "center_y": cy,
+        #                 }
+        #             )
+        #         # Case 2: pure number (e.g., "1") – need to associate with nearest label
+        #         elif digits and not stripped:
+        #             number_entries.append(base_entry)
+        #         # Case 3: pure label, no leading digits
+        #         else:
+        #             text_entries.append(base_entry)
 
-        # Associate pure number entries with nearest text entry
-        for n in number_entries:
-            nx, ny = n["center_x"], n["center_y"]
-            best_text = None
-            best_dist = None
-            for t in text_entries:
-                tx, ty = t["center_x"], t["center_y"]
-                dist = (nx - tx) ** 2 + (ny - ty) ** 2
-                if best_dist is None or dist < best_dist:
-                    best_dist = dist
-                    best_text = t
-            if best_text is not None:
-                mappings.append(
-                    {
-                        "number": n["digits"],
-                        "text": best_text["text"],
-                        "center_x": nx,
-                        "center_y": ny,
-                    }
-                )
 
-        # Deduplicate by number (keep first occurrence)
-        unique_by_number = {}
-        for m in mappings:
-            num = m.get("number")
-            if not num:
-                continue
-            if num not in unique_by_number:
-                unique_by_number[num] = m
+        # # Associate pure number entries with nearest text entry
+        # for n in number_entries:
+        #     nx, ny = n["center_x"], n["center_y"]
+        #     best_text = None
+        #     best_dist = None
+        #     for t in text_entries:
+        #         tx, ty = t["center_x"], t["center_y"]
+        #         dist = (nx - tx) ** 2 + (ny - ty) ** 2
+        #         if best_dist is None or dist < best_dist:
+        #             best_dist = dist
+        #             best_text = t
+        #     if best_text is not None:
+        #         mappings.append(
+        #             {
+        #                 "number": n["digits"],
+        #                 "text": best_text["text"],
+        #                 "center_x": nx,
+        #                 "center_y": ny,
+        #             }
+        #         )
 
-        final_mappings = list(unique_by_number.values())
-        logger.info(
-            f"[CaptureScreenWithNumbers] Total mappings created: {len(final_mappings)}"
-        )
+
+        # # Deduplicate by number (keep first occurrence)
+        # unique_by_number = {}
+        # for m in mappings:
+        #     num = m.get("number")
+        #     if not num:
+        #         continue
+        #     if num not in unique_by_number:
+        #         unique_by_number[num] = m
+
+        # final_mappings = list(unique_by_number.values())
+        # logger.info(
+        #     f"[CaptureScreenWithNumbers] Total mappings created: {len(final_mappings)}"
+        # )
+
+
+        # --- WIN10 TEXT-ONLY MAPPING LOGIC (NO NUMBERS) ---
+        
+        mappings = []
+
+        # Use PaddleOCR raw output: a list of blocks of the form:
+        # [ { "det_polys": [...], "rec_texts": [...], "rec_scores": [...], ... } ]
+        # for block in ocr_result:
+        #     if "det_polys" not in block or "rec_texts" not in block:
+        #         continue
+
+        #     det_polys = block["det_polys"]
+        #     rec_texts = block["rec_texts"]
+
+        #     for poly, txt in zip(det_polys, rec_texts):
+        #         if not txt or not poly:
+        #             continue
+
+        #         # Compute center of polygon
+        #         try:
+        #             xs = [p[0] for p in poly]
+        #             ys = [p[1] for p in poly]
+        #             cx = sum(xs) / len(xs)
+        #             cy = sum(ys) / len(ys)
+        #         except Exception as e:
+        #             logger.error(f"[OCR] Failed to compute center: {e}")
+        #             continue
+
+        #         mappings.append({
+        #             "text": txt.strip(),
+        #             "center_x": cx,
+        #             "center_y": cy
+        #         })
+        page = ocr_result[0]
+
+        polys = page["rec_polys"]
+        texts = page["rec_texts"]
+        scores = page["rec_scores"]
+
+        for poly, text, score in zip(polys, texts, scores):
+            # poly is numpy array shape (4,2)
+            # text is string
+            # score is float
+
+            # compute center
+            xs = [p[0] for p in poly]
+            ys = [p[1] for p in poly]
+            cx = sum(xs)/4
+            cy = sum(ys)/4
+
+            mappings.append({
+                "text": text,
+                "center_x": cx,
+                "center_y": cy
+            })
+
+        final_mappings = mappings  # No dedup or numeric grouping needed
+        logger.info(f"[CaptureScreenWithNumbers] Total mappings created: {len(final_mappings)}")
+
+
 
         metadata = {
             "image_path": screenshot_path,
@@ -623,6 +711,7 @@ class CaptureScreenWithNumbers(Workflow[dict]):
             "mapping_count": len(final_mappings),
         }
 
+        # --- WIN10 TEXT-ONLY MAPPING LOGIC (NO NUMBERS) ---
 
     
     @mcp_agent_app.workflow_run
