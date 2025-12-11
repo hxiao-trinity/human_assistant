@@ -4,269 +4,1459 @@
   "image_height": 1664,
   "mappings": [
     {
-      "text": "O",
-      "center_x": 49.0,
-      "center_y": 34.5
+      "text": "File",
+      "center_x": 106.0,
+      "center_y": 29.5
     },
     {
-      "text": "human_assistant/P4/p4_mcp_se",
-      "center_x": 225.0,
-      "center_y": 36.0
+      "text": "Edit Selection",
+      "center_x": 214.0,
+      "center_y": 30.0
     },
     {
-      "text": "\u00d7",
-      "center_x": 388.0,
-      "center_y": 35.5
+      "text": "view",
+      "center_x": 336.0,
+      "center_y": 30.5
     },
     {
-      "text": "o1",
-      "center_x": 465.0,
-      "center_y": 34.5
+      "text": "Go",
+      "center_x": 413.5,
+      "center_y": 30.5
     },
     {
-      "text": "Open WebUI",
-      "center_x": 553.0,
-      "center_y": 36.0
+      "text": "Run",
+      "center_x": 474.0,
+      "center_y": 30.0
     },
     {
-      "text": "\u00d7",
-      "center_x": 815.5,
-      "center_y": 33.5
-    },
-    {
-      "text": "9",
-      "center_x": 882.5,
-      "center_y": 34.0
-    },
-    {
-      "text": "New Tab",
-      "center_x": 949.0,
-      "center_y": 35.0
-    },
-    {
-      "text": "\u00d7",
-      "center_x": 1239.0,
-      "center_y": 34.5
-    },
-    {
-      "text": "+",
-      "center_x": 1289.5,
-      "center_y": 35.0
-    },
-    {
-      "text": "\u8cb7",
-      "center_x": 2108.25,
-      "center_y": 34.25
-    },
-    {
-      "text": "Gemini",
-      "center_x": 2167.0,
-      "center_y": 34.5
-    },
-    {
-      "text": "\u51f8",
-      "center_x": 2375.5,
-      "center_y": 34.5
-    },
-    {
-      "text": "X",
-      "center_x": 2456.0,
-      "center_y": 35.0
-    },
-    {
-      "text": "V",
-      "center_x": 37.5,
-      "center_y": 109.75
-    },
-    {
-      "text": "\u03c0",
-      "center_x": 101.75,
-      "center_y": 109.5
-    },
-    {
-      "text": "\u2606",
-      "center_x": 2090.5,
-      "center_y": 110.5
-    },
-    {
-      "text": "\u53e3",
-      "center_x": 2213.0,
-      "center_y": 108.0
-    },
-    {
-      "text": "C\u0101",
-      "center_x": 2301.5,
-      "center_y": 110.5
-    },
-    {
-      "text": "\u306e",
-      "center_x": 2394.5,
-      "center_y": 110.25
-    },
-    {
-      "text": "C",
-      "center_x": 164.75,
-      "center_y": 107.25
-    },
-    {
-      "text": "\u2460",
-      "center_x": 239.0,
-      "center_y": 110.5
-    },
-    {
-      "text": "localhost:8080/c/ebc9eb32-0b33-4df3-a7a4-411a21c15eda",
-      "center_x": 594.5,
-      "center_y": 110.5
-    },
-    {
-      "text": "",
-      "center_x": 2245.5,
-      "center_y": 109.5
-    },
-    {
-      "text": "\u25cf\u2022",
-      "center_x": 2458.0,
-      "center_y": 109.5
-    },
-    {
-      "text": "OI",
-      "center_x": 45.5,
-      "center_y": 196.0
-    },
-    {
-      "text": "gpt-oss:120b-cloud v +",
-      "center_x": 303.5,
-      "center_y": 190.0
-    },
-    {
-      "text": "",
-      "center_x": 2381.5,
-      "center_y": 189.5
-    },
-    {
-      "text": "\u2022 \u3002 ",
-      "center_x": 2319.5,
-      "center_y": 189.0
-    },
-    {
-      "text": "M",
-      "center_x": 2445.0,
-      "center_y": 187.5
-    },
-    {
-      "text": "C",
-      "center_x": 45.5,
-      "center_y": 270.0
-    },
-    {
-      "text": "ocr screenshot",
-      "center_x": 2029.0,
-      "center_y": 277.0
+      "text": "-",
+      "center_x": 699.0,
+      "center_y": 30.5
     },
     {
       "text": "Q",
-      "center_x": 44.5,
-      "center_y": 331.5
+      "center_x": 1248.0,
+      "center_y": 27.5
     },
     {
-      "text": "\u65e5",
-      "center_x": 45.0,
-      "center_y": 395.5
+      "text": "P4",
+      "center_x": 1281.5,
+      "center_y": 30.0
     },
     {
-      "text": "OI",
-      "center_x": 462.0,
-      "center_y": 424.0
+      "text": "\u221a",
+      "center_x": 1803.0,
+      "center_y": 28.0
     },
     {
-      "text": "gpt-oss:120b-cloud",
-      "center_x": 652.0,
-      "center_y": 411.0
+      "text": "\u54c1",
+      "center_x": 2100.5,
+      "center_y": 29.0
     },
     {
-      "text": "\u5668",
-      "center_x": 45.5,
-      "center_y": 457.5
+      "text": "\u25a1-",
+      "center_x": 2158.5,
+      "center_y": 29.0
     },
     {
-      "text": "8",
-      "center_x": 2335.5,
-      "center_y": 848.0
+      "text": "000",
+      "center_x": 541.5,
+      "center_y": 29.0
+    },
+    {
+      "text": "\u53e3",
+      "center_x": 2229.0,
+      "center_y": 29.0
+    },
+    {
+      "text": "X",
+      "center_x": 2459.0,
+      "center_y": 30.0
+    },
+    {
+      "text": "1",
+      "center_x": 1767.5,
+      "center_y": 36.5
+    },
+    {
+      "text": "C",
+      "center_x": 39.5,
+      "center_y": 98.25
+    },
+    {
+      "text": "EXPLORER",
+      "center_x": 163.0,
+      "center_y": 92.0
+    },
+    {
+      "text": "\ud83d\ude02",
+      "center_x": 643.0,
+      "center_y": 90.0
     },
     {
       "text": "",
-      "center_x": 2354.5,
-      "center_y": 848.5
+      "center_x": 567.5,
+      "center_y": 91.5
+    },
+    {
+      "text": "p4_mcp_server_starter.py",
+      "center_x": 789.5,
+      "center_y": 94.0
+    },
+    {
+      "text": "X",
+      "center_x": 940.5,
+      "center_y": 91.5
+    },
+    {
+      "text": "P4",
+      "center_x": 130.0,
+      "center_y": 141.5
+    },
+    {
+      "text": "22",
+      "center_x": 652.5,
+      "center_y": 141.5
+    },
+    {
+      "text": "p4_mcp_server_starter.py >",
+      "center_x": 806.5,
+      "center_y": 144.0
+    },
+    {
+      "text": "K",
+      "center_x": 969.5,
+      "center_y": 140.25
+    },
+    {
+      "text": "ClickWorkFlow >read_a_command_loudly",
+      "center_x": 1214.0,
+      "center_y": 142.5
+    },
+    {
+      "text": ">",
+      "center_x": 123.5,
+      "center_y": 178.5
+    },
+    {
+      "text": ".Vscode",
+      "center_x": 181.0,
+      "center_y": 181.0
+    },
+    {
+      "text": "237",
+      "center_x": 661.0,
+      "center_y": 177.0
+    },
+    {
+      "text": "class",
+      "center_x": 766.0,
+      "center_y": 178.5
+    },
+    {
+      "text": "ClickWorkFlow(Workflow[dict]):",
+      "center_x": 1006.5,
+      "center_y": 178.5
+    },
+    {
+      "text": "292",
+      "center_x": 662.0,
+      "center_y": 210.5
+    },
+    {
+      "text": "kb",
+      "center_x": 154.5,
+      "center_y": 219.5
+    },
+    {
+      "text": "async def click_element(self,",
+      "center_x": 982.5,
+      "center_y": 211.0
+    },
+    {
+      "text": "find_data:dict)",
+      "center_x": 1291.5,
+      "center_y": 211.0
+    },
+    {
+      "text": "dict:",
+      "center_x": 1486.0,
+      "center_y": 210.5
+    },
+    {
+      "text": "C",
+      "center_x": 569.0,
+      "center_y": 218.0
+    },
+    {
+      "text": "",
+      "center_x": 668.5,
+      "center_y": 231.5
+    },
+    {
+      "text": "1",
+      "center_x": 1585.5,
+      "center_y": 235.0
     },
     {
       "text": "0",
-      "center_x": 2344.5,
-      "center_y": 883.75
+      "center_x": 32.0,
+      "center_y": 255.5
     },
     {
-      "text": "*",
-      "center_x": 2345.5,
-      "center_y": 1025.5
+      "text": "",
+      "center_x": 158.0,
+      "center_y": 256.5
     },
     {
-      "text": "Send a Message",
-      "center_x": 438.5,
-      "center_y": 1445.5
+      "text": "data",
+      "center_x": 199.0,
+      "center_y": 257.5
+    },
+    {
+      "text": "327",
+      "center_x": 662.0,
+      "center_y": 260.5
+    },
+    {
+      "text": "\u2022",
+      "center_x": 51.5,
+      "center_y": 263.0
+    },
+    {
+      "text": "return",
+      "center_x": 931.0,
+      "center_y": 261.5
+    },
+    {
+      "text": "f",
+      "center_x": 990.5,
+      "center_y": 261.25
+    },
+    {
+      "text": "26",
+      "center_x": 56.0,
+      "center_y": 284.5
+    },
+    {
+      "text": "ocr_json",
+      "center_x": 215.5,
+      "center_y": 297.5
+    },
+    {
+      "text": "328",
+      "center_x": 662.5,
+      "center_y": 293.5
+    },
+    {
+      "text": "\"'status'",
+      "center_x": 991.5,
+      "center_y": 293.5
+    },
+    {
+      "text": "",
+      "center_x": 1044.5,
+      "center_y": 288.0
+    },
+    {
+      "text": "+",
+      "center_x": 1057.5,
+      "center_y": 293.0
+    },
+    {
+      "text": "I",
+      "center_x": 1086.5,
+      "center_y": 288.0
+    },
+    {
+      "text": ",",
+      "center_x": 1178.5,
+      "center_y": 301.5
+    },
+    {
+      "text": "{}ocr_mappings_1208_2309,json",
+      "center_x": 347.5,
+      "center_y": 335.5
+    },
+    {
+      "text": "329",
+      "center_x": 662.0,
+      "center_y": 326.0
+    },
+    {
+      "text": "II",
+      "center_x": 950.5,
+      "center_y": 321.0
+    },
+    {
+      "text": "reason\"",
+      "center_x": 1001.5,
+      "center_y": 328.0
+    },
+    {
+      "text": "str(e),",
+      "center_x": 1120.5,
+      "center_y": 328.0
+    },
+    {
+      "text": "\u60f3",
+      "center_x": 36.0,
+      "center_y": 359.0
+    },
+    {
+      "text": "0",
+      "center_x": 571.5,
+      "center_y": 334.5
+    },
+    {
+      "text": "",
+      "center_x": 1058.0,
+      "center_y": 328.5
+    },
+    {
+      "text": "330",
+      "center_x": 662.5,
+      "center_y": 359.5
+    },
+    {
+      "text": "1r",
+      "center_x": 897.5,
+      "center_y": 360.5
+    },
+    {
+      "text": "{}ocr_mappings_1210_2318.json",
+      "center_x": 347.5,
+      "center_y": 374.5
+    },
+    {
+      "text": "U",
+      "center_x": 571.5,
+      "center_y": 373.5
+    },
+    {
+      "text": "331",
+      "center_x": 662.0,
+      "center_y": 393.5
+    },
+    {
+      "text": "output",
+      "center_x": 212.5,
+      "center_y": 413.5
+    },
+    {
+      "text": "332",
+      "center_x": 662.0,
+      "center_y": 426.5
+    },
+    {
+      "text": "@mcp_agent_app.workflow_task(schedule",
+      "center_x": 1033.0,
+      "center_y": 427.0
+    },
+    {
+      "text": "to",
+      "center_x": 1308.5,
+      "center_y": 426.5
+    },
+    {
+      "text": "close",
+      "center_x": 1367.0,
+      "center_y": 426.5
+    },
+    {
+      "text": "timeout=timedelta(minutes=2)",
+      "center_x": 1603.0,
+      "center_y": 426.5
+    },
+    {
+      "text": "\u25b3",
+      "center_x": 56.0,
+      "center_y": 451.5
+    },
+    {
+      "text": "\u221a",
+      "center_x": 158.5,
+      "center_y": 448.5
+    },
+    {
+      "text": "rag_storage",
+      "center_x": 237.5,
+      "center_y": 453.0
+    },
+    {
+      "text": "333",
+      "center_x": 662.5,
+      "center_y": 459.5
+    },
+    {
+      "text": "async def read_a_command",
+      "center_x": 943.5,
+      "center_y": 460.0
+    },
+    {
+      "text": "_1oudly(self,",
+      "center_x": 1187.5,
+      "center_y": 460.0
+    },
+    {
+      "text": "command\uff1a str)",
+      "center_x": 1380.5,
+      "center_y": 460.0
+    },
+    {
+      "text": "->",
+      "center_x": 1496.5,
+      "center_y": 460.0
+    },
+    {
+      "text": "dict:",
+      "center_x": 1554.0,
+      "center_y": 459.0
+    },
+    {
+      "text": "screenshots",
+      "center_x": 233.5,
+      "center_y": 489.0
+    },
+    {
+      "text": "334",
+      "center_x": 662.0,
+      "center_y": 492.5
+    },
+    {
+      "text": "\"\"\"Announce a command",
+      "center_x": 978.5,
+      "center_y": 492.5
+    },
+    {
+      "text": "or",
+      "center_x": 1142.0,
+      "center_y": 493.5
+    },
+    {
+      "text": "status",
+      "center_x": 1212.0,
+      "center_y": 493.5
+    },
+    {
+      "text": "via",
+      "center_x": 1287.5,
+      "center_y": 493.0
+    },
+    {
+      "text": "text-to-speech.",
+      "center_x": 1415.5,
+      "center_y": 493.0
+    },
+    {
+      "text": "\u2026\"",
+      "center_x": 1542.5,
+      "center_y": 486.5
+    },
+    {
+      "text": "8",
+      "center_x": 2376.5,
+      "center_y": 501.0
+    },
+    {
+      "text": "\u2026",
+      "center_x": 2396.5,
+      "center_y": 499.5
+    },
+    {
+      "text": "ocr_raw_dump_1208_2309.txt",
+      "center_x": 359.5,
+      "center_y": 528.0
+    },
+    {
+      "text": "0",
+      "center_x": 571.5,
+      "center_y": 528.0
+    },
+    {
+      "text": "335",
+      "center_x": 661.5,
+      "center_y": 525.5
+    },
+    {
+      "text": "#",
+      "center_x": 843.0,
+      "center_y": 526.5
+    },
+    {
+      "text": "ToDO: Implement this method",
+      "center_x": 1040.5,
+      "center_y": 527.0
+    },
+    {
+      "text": "?",
+      "center_x": 49.0,
+      "center_y": 531.5
+    },
+    {
+      "text": "0",
+      "center_x": 2387.0,
+      "center_y": 536.5
+    },
+    {
+      "text": "ocr_raw_dump_1210_2314.txt",
+      "center_x": 358.5,
+      "center_y": 565.0
+    },
+    {
+      "text": "336",
+      "center_x": 662.0,
+      "center_y": 559.5
+    },
+    {
+      "text": "logger.info(f\"[ClickWorkFlow]",
+      "center_x": 1029.5,
+      "center_y": 559.5
+    },
+    {
+      "text": "U",
+      "center_x": 571.5,
+      "center_y": 565.5
+    },
+    {
+      "text": "TTS:",
+      "center_x": 1266.0,
+      "center_y": 560.0
+    },
+    {
+      "text": "{command}",
+      "center_x": 1365.0,
+      "center_y": 561.0
+    },
+    {
+      "text": "337",
+      "center_x": 661.5,
+      "center_y": 593.0
+    },
+    {
+      "text": "speak_text(command)",
+      "center_x": 961.5,
+      "center_y": 593.5
+    },
+    {
+      "text": "ocr_raw_dump_1210_2319.txt",
+      "center_x": 358.5,
+      "center_y": 605.0
+    },
+    {
+      "text": "U",
+      "center_x": 571.5,
+      "center_y": 604.0
+    },
+    {
+      "text": "338",
+      "center_x": 662.5,
+      "center_y": 625.0
+    },
+    {
+      "text": "return",
+      "center_x": 878.0,
+      "center_y": 626.5
+    },
+    {
+      "text": "00:04",
+      "center_x": 2385.5,
+      "center_y": 612.5
+    },
+    {
+      "text": "ocr_screenshot_1208_2303.png",
+      "center_x": 367.5,
+      "center_y": 643.5
+    },
+    {
+      "text": "1",
+      "center_x": 935.5,
+      "center_y": 629.0
+    },
+    {
+      "text": "N",
+      "center_x": 193.0,
+      "center_y": 642.5
+    },
+    {
+      "text": "0",
+      "center_x": 571.5,
+      "center_y": 643.5
+    },
+    {
+      "text": "339",
+      "center_x": 662.0,
+      "center_y": 659.0
+    },
+    {
+      "text": "\"'status\"",
+      "center_x": 937.5,
+      "center_y": 660.0
+    },
+    {
+      "text": "",
+      "center_x": 991.5,
+      "center_y": 654.0
+    },
+    {
+      "text": "II",
+      "center_x": 1031.5,
+      "center_y": 654.5
+    },
+    {
+      "text": "'spoken\"",
+      "center_x": 1084.0,
+      "center_y": 659.5
+    },
+    {
+      "text": "+",
+      "center_x": 2389.0,
+      "center_y": 658.75
+    },
+    {
+      "text": "A",
+      "center_x": 42.0,
+      "center_y": 692.0
+    },
+    {
+      "text": "\ud83c\udf08",
+      "center_x": 194.0,
+      "center_y": 680.5
+    },
+    {
+      "text": "ocr_screenshot_1210_2313.png",
+      "center_x": 364.5,
+      "center_y": 681.0
+    },
+    {
+      "text": "U",
+      "center_x": 571.5,
+      "center_y": 681.5
+    },
+    {
+      "text": ",",
+      "center_x": 1137.5,
+      "center_y": 667.0
+    },
+    {
+      "text": "340",
+      "center_x": 662.0,
+      "center_y": 692.5
+    },
+    {
+      "text": "\u2022",
+      "center_x": 978.0,
+      "center_y": 692.5
+    },
+    {
+      "text": "command,",
+      "center_x": 1047.0,
+      "center_y": 692.0
+    },
+    {
+      "text": "\u25a0",
+      "center_x": 2386.5,
+      "center_y": 698.0
+    },
+    {
+      "text": "\u4fea",
+      "center_x": 193.0,
+      "center_y": 718.5
+    },
+    {
+      "text": "ocr_screenshot_1210_2318.png",
+      "center_x": 367.5,
+      "center_y": 720.5
+    },
+    {
+      "text": "0",
+      "center_x": 571.5,
+      "center_y": 719.5
+    },
+    {
+      "text": "341",
+      "center_x": 662.0,
+      "center_y": 725.5
+    },
+    {
+      "text": "venv311",
+      "center_x": 183.5,
+      "center_y": 758.5
+    },
+    {
+      "text": "342",
+      "center_x": 662.0,
+      "center_y": 758.5
+    },
+    {
+      "text": "C",
+      "center_x": 2385.5,
+      "center_y": 742.0
+    },
+    {
+      "text": "M",
+      "center_x": 42.0,
+      "center_y": 773.0
+    },
+    {
+      "text": "`",
+      "center_x": 122.75,
+      "center_y": 756.5
+    },
+    {
+      "text": "-",
+      "center_x": 2380.5,
+      "center_y": 757.0
+    },
+    {
+      "text": "+",
+      "center_x": 2392.5,
+      "center_y": 753.0
+    },
+    {
+      "text": "\u2606",
+      "center_x": 121.5,
+      "center_y": 794.5
+    },
+    {
+      "text": ".env",
+      "center_x": 165.0,
+      "center_y": 797.5
+    },
+    {
+      "text": "343",
+      "center_x": 662.0,
+      "center_y": 793.0
+    },
+    {
+      "text": "344",
+      "center_x": 662.0,
+      "center_y": 825.5
+    },
+    {
+      "text": ".webui_secret_key",
+      "center_x": 230.0,
+      "center_y": 835.5
+    },
+    {
+      "text": "@mcp_agent_app.workflow_run",
+      "center_x": 964.0,
+      "center_y": 826.0
+    },
+    {
+      "text": "\u2606",
+      "center_x": 2386.0,
+      "center_y": 851.5
+    },
+    {
+      "text": "R",
+      "center_x": 43.5,
+      "center_y": 861.0
+    },
+    {
+      "text": "345",
+      "center_x": 662.0,
+      "center_y": 858.5
+    },
+    {
+      "text": "async def run(self,",
+      "center_x": 908.5,
+      "center_y": 858.5
+    },
+    {
+      "text": "target:",
+      "center_x": 1098.0,
+      "center_y": 859.0
+    },
+    {
+      "text": "str",
+      "center_x": 1180.0,
+      "center_y": 858.5
+    },
+    {
+      "text": "path",
+      "center_x": 1253.5,
+      "center_y": 858.5
+    },
+    {
+      "text": "to",
+      "center_x": 1307.0,
+      "center_y": 858.5
+    },
+    {
+      "text": "json:",
+      "center_x": 1367.0,
+      "center_y": 859.0
+    },
+    {
+      "text": "str)",
+      "center_x": 1440.0,
+      "center_y": 858.0
+    },
+    {
+      "text": "->",
+      "center_x": 1497.0,
+      "center_y": 858.5
+    },
+    {
+      "text": "WorkflowResult[dict]",
+      "center_x": 1655.5,
+      "center_y": 858.5
+    },
+    {
+      "text": "w",
+      "center_x": 122.0,
+      "center_y": 871.5
+    },
+    {
+      "text": "~$sssssssssssssssssssssssssssssssssssSss",
+      "center_x": 350.0,
+      "center_y": 874.5
+    },
+    {
+      "text": "U",
+      "center_x": 571.5,
+      "center_y": 873.0
+    },
+    {
+      "text": "346",
+      "center_x": 662.0,
+      "center_y": 891.5
+    },
+    {
+      "text": "\u2026",
+      "center_x": 857.0,
+      "center_y": 885.0
+    },
+    {
+      "text": "'Execute",
+      "center_x": 924.0,
+      "center_y": 891.5
+    },
+    {
+      "text": "e the complete",
+      "center_x": 1057.0,
+      "center_y": 892.5
+    },
+    {
+      "text": "click workflow.",
+      "center_x": 1254.5,
+      "center_y": 891.5
+    },
+    {
+      "text": "\u5ddd\u2026",
+      "center_x": 1381.0,
+      "center_y": 885.5
+    },
+    {
+      "text": "Q",
+      "center_x": 122.0,
+      "center_y": 912.0
+    },
+    {
+      "text": "Chrome.mp4",
+      "center_x": 207.0,
+      "center_y": 913.5
+    },
+    {
+      "text": "347",
+      "center_x": 661.5,
+      "center_y": 925.5
+    },
+    {
+      "text": "#",
+      "center_x": 842.5,
+      "center_y": 925.5
+    },
+    {
+      "text": "TODO:Implement this",
+      "center_x": 998.5,
+      "center_y": 926.0
+    },
+    {
+      "text": "method",
+      "center_x": 1183.0,
+      "center_y": 925.0
+    },
+    {
+      "text": "2",
+      "center_x": 121.5,
+      "center_y": 950.0
+    },
+    {
+      "text": "p4_mcp_server_starter_0.py",
+      "center_x": 278.5,
+      "center_y": 952.0
+    },
+    {
+      "text": "348",
+      "center_x": 662.0,
+      "center_y": 959.0
+    },
+    {
+      "text": "logger.info(",
+      "center_x": 915.5,
+      "center_y": 960.0
+    },
+    {
+      "text": "\u5df1",
+      "center_x": 121.5,
+      "center_y": 989.5
+    },
+    {
+      "text": "p4_mcp_server_starter.py",
+      "center_x": 268.0,
+      "center_y": 991.0
+    },
+    {
+      "text": "349",
+      "center_x": 661.5,
+      "center_y": 992.0
+    },
+    {
+      "text": "f\"[ClickWorkFlow]",
+      "center_x": 1004.5,
+      "center_y": 991.5
+    },
+    {
+      "text": "Starting workflow",
+      "center_x": 1248.0,
+      "center_y": 992.0
+    },
+    {
+      "text": "v for target=",
+      "center_x": 1442.0,
+      "center_y": 992.5
+    },
+    {
+      "text": "",
+      "center_x": 1690.5,
+      "center_y": 985.5
+    },
+    {
+      "text": ",",
+      "center_x": 1663.0,
+      "center_y": 999.5
+    },
+    {
+      "text": "\ud83c\udf08",
+      "center_x": 121.5,
+      "center_y": 1027.0
+    },
+    {
+      "text": "p4.py",
+      "center_x": 170.5,
+      "center_y": 1030.0
+    },
+    {
+      "text": "350",
+      "center_x": 662.0,
+      "center_y": 1025.0
+    },
+    {
+      "text": "\"metadata='{path_",
+      "center_x": 1020.5,
+      "center_y": 1026.0
+    },
+    {
+      "text": "_to_json}",
+      "center_x": 1183.5,
+      "center_y": 1026.0
+    },
+    {
+      "text": "README.md",
+      "center_x": 205.0,
+      "center_y": 1066.0
+    },
+    {
+      "text": "351",
+      "center_x": 662.0,
+      "center_y": 1058.5
+    },
+    {
+      "text": "\u2460",
+      "center_x": 121.5,
+      "center_y": 1066.0
+    },
+    {
+      "text": "\uff09",
+      "center_x": 842.5,
+      "center_y": 1059.5
+    },
+    {
+      "text": "352",
+      "center_x": 662.5,
+      "center_y": 1091.5
+    },
+    {
+      "text": "",
+      "center_x": 122.0,
+      "center_y": 1103.5
+    },
+    {
+      "text": "SsSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.",
+      "center_x": 338.5,
+      "center_y": 1105.0
+    },
+    {
+      "text": "0",
+      "center_x": 571.5,
+      "center_y": 1104.5
+    },
+    {
+      "text": "2",
+      "center_x": 42.5,
+      "center_y": 1110.5
+    },
+    {
+      "text": "353",
+      "center_x": 662.0,
+      "center_y": 1124.5
+    },
+    {
+      "text": "#",
+      "center_x": 842.5,
+      "center_y": 1124.5
+    },
+    {
+      "text": "Step O: announce intent",
+      "center_x": 1015.5,
+      "center_y": 1124.0
+    },
+    {
+      "text": "0",
+      "center_x": 122.0,
+      "center_y": 1142.5
+    },
+    {
+      "text": "Word.mp4",
+      "center_x": 195.0,
+      "center_y": 1143.5
+    },
+    {
+      "text": "354",
+      "center_x": 663.0,
+      "center_y": 1157.5
+    },
+    {
+      "text": "stepo",
+      "center_x": 870.5,
+      "center_y": 1158.0
+    },
+    {
+      "text": "await self.read_a_command_loudly(f\"Looking",
+      "center_x": 1228.5,
+      "center_y": 1158.5
+    },
+    {
+      "text": "for",
+      "center_x": 1536.5,
+      "center_y": 1158.5
+    },
+    {
+      "text": "{target}\")",
+      "center_x": 1640.0,
+      "center_y": 1158.5
+    },
+    {
+      "text": "",
+      "center_x": 41.5,
+      "center_y": 1197.0
+    },
+    {
+      "text": "PROBLEMS",
+      "center_x": 690.5,
+      "center_y": 1205.5
+    },
+    {
+      "text": "OUTPUT",
+      "center_x": 814.5,
+      "center_y": 1206.0
+    },
+    {
+      "text": "DEBUG CONSOLE",
+      "center_x": 968.0,
+      "center_y": 1205.0
+    },
+    {
+      "text": "TERMINAL",
+      "center_x": 1130.0,
+      "center_y": 1206.0
+    },
+    {
+      "text": "PORTS",
+      "center_x": 1245.0,
+      "center_y": 1206.0
+    },
+    {
+      "text": "-",
+      "center_x": 2307.5,
+      "center_y": 1205.0
+    },
+    {
+      "text": "",
+      "center_x": 2347.0,
+      "center_y": 1205.5
+    },
+    {
+      "text": "-",
+      "center_x": 2422.0,
+      "center_y": 1197.5
+    },
+    {
+      "text": "X",
+      "center_x": 2460.5,
+      "center_y": 1204.5
+    },
+    {
+      "text": "L",
+      "center_x": 2408.0,
+      "center_y": 1211.0
+    },
+    {
+      "text": "\u300d",
+      "center_x": 2422.5,
+      "center_y": 1211.5
+    },
+    {
+      "text": "\u570bpython",
+      "center_x": 2357.5,
+      "center_y": 1256.0
+    },
+    {
+      "text": "\"HTTP/1.1 202 Accepted\"",
+      "center_x": 794.0,
+      "center_y": 1274.0
+    },
+    {
+      "text": "Request: GET http://127.0.0.1:3000/mcp",
+      "center_x": 1981.0,
+      "center_y": 1304.5
+    },
+    {
+      "text": "\u8fc7open-webui",
+      "center_x": 2383.0,
+      "center_y": 1295.5
+    },
+    {
+      "text": "2025-12-10 23:32:59.074",
+      "center_x": 796.0,
+      "center_y": 1304.0
+    },
+    {
+      "text": "INFO",
+      "center_x": 1008.5,
+      "center_y": 1304.0
+    },
+    {
+      "text": "httpx",
+      "center_x": 1157.5,
+      "center_y": 1304.5
+    },
+    {
+      "text": "client:",
+      "center_x": 1260.5,
+      "center_y": 1304.5
+    },
+    {
+      "text": "send",
+      "center_x": 1347.0,
+      "center_y": 1305.5
+    },
+    {
+      "text": "_single_request:1740",
+      "center_x": 1503.0,
+      "center_y": 1304.5
+    },
+    {
+      "text": "HTTP",
+      "center_x": 1698.0,
+      "center_y": 1304.5
+    },
+    {
+      "text": "1I",
+      "center_x": 2249.5,
+      "center_y": 1298.5
+    },
+    {
+      "text": "HTTP/1.1 200 0K\"",
+      "center_x": 747.0,
+      "center_y": 1334.0
+    },
+    {
+      "text": "2025-12-10 23:32:59.078",
+      "center_x": 794.5,
+      "center_y": 1364.0
+    },
+    {
+      "text": "INFO",
+      "center_x": 1009.0,
+      "center_y": 1364.0
+    },
+    {
+      "text": "httpx.",
+      "center_x": 1161.0,
+      "center_y": 1365.5
+    },
+    {
+      "text": "client:",
+      "center_x": 1261.5,
+      "center_y": 1365.5
+    },
+    {
+      "text": "send_single_request:1740",
+      "center_x": 1475.5,
+      "center_y": 1364.5
+    },
+    {
+      "text": "9-HTTP",
+      "center_x": 1680.5,
+      "center_y": 1364.5
+    },
+    {
+      "text": "Request: P0sT http://127.0.0.1:3000/mcp",
+      "center_x": 1987.5,
+      "center_y": 1364.5
+    },
+    {
+      "text": "\"HTTP/1.1 200 OK\"",
+      "center_x": 754.0,
+      "center_y": 1393.5
+    },
+    {
+      "text": "2025-12-10 23:32:59.088",
+      "center_x": 794.0,
+      "center_y": 1424.0
+    },
+    {
+      "text": "INFO",
+      "center_x": 1008.5,
+      "center_y": 1424.5
+    },
+    {
+      "text": "uvicorn.protocols.http.httptools_impl:send:476",
+      "center_x": 1424.0,
+      "center_y": 1424.5
+    },
+    {
+      "text": "127.0.0.1:61426",
+      "center_x": 1859.5,
+      "center_y": 1424.5
+    },
+    {
+      "text": "\"'GET",
+      "center_x": 2025.5,
+      "center_y": 1423.0
+    },
+    {
+      "text": "T /api/v1/chats/?",
+      "center_x": 2150.5,
+      "center_y": 1424.5
+    },
+    {
+      "text": "page=1 HTTP/1.1\" 200",
+      "center_x": 774.5,
+      "center_y": 1454.5
     },
     {
       "text": "Activate Windows",
-      "center_x": 2122.0,
-      "center_y": 1458.5
+      "center_x": 2121.0,
+      "center_y": 1460.5
+    },
+    {
+      "text": "2025-12-10 23:33:00.696",
+      "center_x": 794.5,
+      "center_y": 1484.5
+    },
+    {
+      "text": "INFO",
+      "center_x": 1008.5,
+      "center_y": 1484.0
+    },
+    {
+      "text": "DX",
+      "center_x": 1177.0,
+      "center_y": 1486.0
+    },
+    {
+      "text": "ent:",
+      "center_x": 1280.0,
+      "center_y": 1486.0
+    },
+    {
+      "text": "send",
+      "center_x": 1345.5,
+      "center_y": 1486.0
+    },
+    {
+      "text": "single",
+      "center_x": 1424.0,
+      "center_y": 1487.0
+    },
+    {
+      "text": "request:1740",
+      "center_x": 1553.0,
+      "center_y": 1484.0
+    },
+    {
+      "text": "TP",
+      "center_x": 1711.5,
+      "center_y": 1484.0
+    },
+    {
+      "text": "Request:",
+      "center_x": 1787.0,
+      "center_y": 1485.0
+    },
+    {
+      "text": "POST",
+      "center_x": 1879.5,
+      "center_y": 1484.0
+    },
+    {
+      "text": "http: //127.0.0.1:3e00/mcp",
+      "center_x": 2079.5,
+      "center_y": 1485.5
+    },
+    {
+      "text": "\u4eac",
+      "center_x": 42.5,
+      "center_y": 1515.5
+    },
+    {
+      "text": "\u3078",
+      "center_x": 100.5,
+      "center_y": 1501.0
+    },
+    {
+      "text": "OUTLINE",
+      "center_x": 159.0,
+      "center_y": 1503.0
+    },
+    {
+      "text": "\"HTTP/1.1 200",
+      "center_x": 731.0,
+      "center_y": 1513.5
     },
     {
       "text": "Go to Settings to activate Windows.",
       "center_x": 2187.0,
-      "center_y": 1505.0
+      "center_y": 1503.0
     },
     {
-      "text": "\u5341",
-      "center_x": 352.0,
-      "center_y": 1515.5
+      "text": "9oK\"",
+      "center_x": 837.5,
+      "center_y": 1513.5
     },
     {
-      "text": "81",
-      "center_x": 489.5,
-      "center_y": 1515.0
+      "text": ">",
+      "center_x": 101.0,
+      "center_y": 1541.5
     },
     {
-      "text": "\u54c1",
-      "center_x": 422.0,
-      "center_y": 1514.0
+      "text": "TIMELINE",
+      "center_x": 163.5,
+      "center_y": 1540.5
     },
     {
-      "text": "H",
-      "center_x": 45.5,
-      "center_y": 1536.5
+      "text": "8",
+      "center_x": 85.5,
+      "center_y": 1577.0
     },
     {
-      "text": "",
-      "center_x": 1070.0,
-      "center_y": 1631.25
+      "text": "main*",
+      "center_x": 127.5,
+      "center_y": 1578.5
     },
     {
-      "text": "\u540e.\u82f1",
-      "center_x": 2183.0,
-      "center_y": 1628.0
+      "text": "\u22970\u25b20",
+      "center_x": 275.5,
+      "center_y": 1577.0
     },
     {
-      "text": "23:09",
+      "text": "CLive Share",
+      "center_x": 410.0,
+      "center_y": 1577.0
+    },
+    {
+      "text": "3",
+      "center_x": 516.5,
+      "center_y": 1577.5
+    },
+    {
+      "text": "\u00d3",
+      "center_x": 1372.5,
+      "center_y": 1578.0
+    },
+    {
+      "text": "HX (2 days ago)",
+      "center_x": 1465.0,
+      "center_y": 1579.5
+    },
+    {
+      "text": "Ln 341, Col 10",
+      "center_x": 1636.0,
+      "center_y": 1578.5
+    },
+    {
+      "text": "Spaces:",
+      "center_x": 1765.5,
+      "center_y": 1580.0
+    },
+    {
+      "text": "4",
+      "center_x": 1807.5,
+      "center_y": 1579.5
+    },
+    {
+      "text": "UTF-8",
+      "center_x": 1871.5,
+      "center_y": 1578.5
+    },
+    {
+      "text": "LF",
+      "center_x": 1937.5,
+      "center_y": 1578.5
+    },
+    {
+      "text": "{} Python",
+      "center_x": 2027.5,
+      "center_y": 1579.0
+    },
+    {
+      "text": "\u2463Finish Setup",
+      "center_x": 2180.5,
+      "center_y": 1578.0
+    },
+    {
+      "text": "\\",
+      "center_x": 27.5,
+      "center_y": 1577.5
+    },
+    {
+      "text": "venv311 (3.11.8)",
+      "center_x": 2354.0,
+      "center_y": 1579.0
+    },
+    {
+      "text": "Q",
+      "center_x": 182.0,
+      "center_y": 1578.0
+    },
+    {
+      "text": "\u25a1",
+      "center_x": 2472.0,
+      "center_y": 1579.0
+    },
+    {
+      "text": "23:33",
       "center_x": 2344.5,
-      "center_y": 1612.0
-    },
-    {
-      "text": "",
-      "center_x": 40.5,
-      "center_y": 1628.5
+      "center_y": 1612.5
     },
     {
       "text": "O",
-      "center_x": 124.5,
-      "center_y": 1623.0
+      "center_x": 122.5,
+      "center_y": 1626.0
     },
     {
       "text": "Type here to search",
@@ -274,49 +1464,59 @@
       "center_y": 1631.5
     },
     {
-      "text": "\u4e09i",
-      "center_x": 632.0,
-      "center_y": 1627.0
-    },
-    {
-      "text": "\u00ae",
-      "center_x": 895.5,
-      "center_y": 1633.5
-    },
-    {
-      "text": "w",
-      "center_x": 1234.5,
-      "center_y": 1628.0
+      "text": "\u2193",
+      "center_x": 803.75,
+      "center_y": 1620.5
     },
     {
       "text": "\u53e3",
-      "center_x": 1989.0,
-      "center_y": 1627.0
+      "center_x": 1932.0,
+      "center_y": 1628.75
     },
     {
-      "text": "5",
-      "center_x": 2047.5,
-      "center_y": 1627.5
+      "text": "P",
+      "center_x": 1993.0,
+      "center_y": 1628.0
+    },
+    {
+      "text": "c.\u82f1",
+      "center_x": 2183.5,
+      "center_y": 1628.0
     },
     {
       "text": "\u62fc",
-      "center_x": 2255.5,
+      "center_x": 2255.0,
       "center_y": 1628.0
     },
     {
-      "text": "\u53e3",
-      "center_x": 719.0,
-      "center_y": 1634.0
+      "text": "\u25a1",
+      "center_x": 718.5,
+      "center_y": 1634.5
     },
     {
-      "text": "-",
-      "center_x": 2099.5,
-      "center_y": 1627.5
+      "text": "H",
+      "center_x": 901.0,
+      "center_y": 1637.5
     },
     {
-      "text": "2025/12/8",
-      "center_x": 2345.0,
-      "center_y": 1645.0
+      "text": "H",
+      "center_x": 989.0,
+      "center_y": 1638.0
+    },
+    {
+      "text": "H",
+      "center_x": 1076.0,
+      "center_y": 1637.5
+    },
+    {
+      "text": "d",
+      "center_x": 812.75,
+      "center_y": 1636.25
+    },
+    {
+      "text": "2025/12/10",
+      "center_x": 2344.5,
+      "center_y": 1644.5
     }
   ]
 }

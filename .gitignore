@@ -10,6 +10,13 @@ P3/Documents
 P4/.webui_secret_key
 kb
 *_0.py
+~$*
+*.png
+*.jpg
+*.md
+instructions.txt
+*.pdf
+ocr_raw_*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
